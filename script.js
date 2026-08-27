@@ -1,10 +1,13 @@
-// ===== Timeline سینمایی: هماهنگ با موقعیت اسکرول (نه انیمیشن یک‌طرفه) =====
+// ===== Timeline سینمایی: هماهنگ با موقعیت اسکرول =====
 const cineFill = document.getElementById('cineFill');
 const cineMarkersEl = document.getElementById('cineMarkers');
 const cineMarkerEls = cineMarkersEl ? Array.from(cineMarkersEl.querySelectorAll('.cine-marker')) : [];
 const navLinks = Array.from(document.querySelectorAll('.main-nav a[data-nav]'));
 
-const timelineSectionIds = ['home', 'skills', 'services', 'order', 'reveal'];
+// تایم‌لاین تزئینی فقط تا انتهای بخش «راه‌های ارتباطی» را پوشش می‌دهد
+const timelineSectionIds = ['home', 'skills', 'services', 'order', 'contact'];
+// اما برای فعال‌سازی منو، «درباره من» هم در انتها بررسی می‌شود
+const navSectionIds = [...timelineSectionIds, 'reveal'];
 
 function getTimelineBounds() {
   const first = document.getElementById(timelineSectionIds[0]);
@@ -38,21 +41,15 @@ function updateCineTimeline() {
 
 function updateActiveSection() {
   const viewportRef = window.scrollY + window.innerHeight * 0.4;
-  let currentId = timelineSectionIds[0];
+  let currentId = navSectionIds[0];
 
-  timelineSectionIds.forEach((id) => {
+  navSectionIds.forEach((id) => {
     const el = document.getElementById(id);
     if (!el) return;
     if (el.offsetTop <= viewportRef) {
       currentId = id;
     }
   });
-
-  // بخش راه‌های ارتباطی هم برای منو در نظر گرفته شود (بعد از پایان Timeline)
-  const contactEl = document.getElementById('contact');
-  if (contactEl && contactEl.offsetTop <= viewportRef) {
-    currentId = 'contact';
-  }
 
   cineMarkerEls.forEach((marker) => {
     marker.classList.toggle('is-active', marker.getAttribute('data-target') === currentId);
@@ -110,7 +107,7 @@ if (navToggle && mainNav) {
   });
 }
 
-// نوار پیشرفت اسکرول + تایم‌کد نمادین (عناصر امضادار طراحی)
+// نوار پیشرفت اسکرول + تایم‌کد نمادین
 const tcDisplay = document.getElementById('tc-display');
 const scrubHead = document.getElementById('scrubHead');
 
@@ -131,7 +128,7 @@ function updateScrollFx() {
   }
 
   if (tcDisplay) {
-    const totalFrames = Math.floor(progress * 60 * 30); // شبیه‌سازی 30fps در بازه ۶۰ ثانیه
+    const totalFrames = Math.floor(progress * 60 * 30);
     const frames = totalFrames % 30;
     const totalSeconds = Math.floor(totalFrames / 30);
     const seconds = totalSeconds % 60;
@@ -175,7 +172,6 @@ if ('IntersectionObserver' in window && revealEls.length) {
   );
   revealEls.forEach((el) => observer.observe(el));
 
-  // اطمینان: اگر به هر دلیلی المانی هیچ‌وقت is-visible نشد، بعد از کمی تاخیر نمایش داده شود
   window.setTimeout(() => {
     revealEls.forEach((el) => el.classList.add('is-visible'));
   }, 2500);
