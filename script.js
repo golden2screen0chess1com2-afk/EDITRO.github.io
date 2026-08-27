@@ -24,7 +24,7 @@ function layoutCineMarkers() {
     if (!targetEl) return;
     const center = targetEl.offsetTop + targetEl.offsetHeight / 2;
     const pct = ((center - bounds.start) / (bounds.end - bounds.start)) * 100;
-    marker.style.top = `${Math.min(Math.max(pct, 2), 98)}%`;
+    marker.style.setProperty('--pos', `${Math.min(Math.max(pct, 2), 98)}%`);
   });
 }
 
@@ -33,7 +33,7 @@ function updateCineTimeline() {
   if (!bounds || !cineFill) return;
   const viewportRef = window.scrollY + window.innerHeight * 0.4;
   const progress = Math.min(Math.max((viewportRef - bounds.start) / (bounds.end - bounds.start), 0), 1);
-  cineFill.style.height = `${progress * 100}%`;
+  cineFill.style.setProperty('--fill', `${progress * 100}%`);
 }
 
 function updateActiveSection() {
