@@ -127,7 +127,7 @@ a{ color: inherit; text-decoration:none; }
 /* ===== Cinematic Timeline: سیگنیچر بصری اصلی سایت ===== */
 .cine-timeline{
   position: fixed;
-  top: 90px;
+  top: 100px;
   bottom: 24px;
   inset-inline-end: 22px;
   width: 34px;
@@ -206,28 +206,42 @@ a{ color: inherit; text-decoration:none; }
   .cine-timeline{ display: block; }
 }
 
-/* ===== Header ===== */
+/* =========================================================
+   ===== HEADER — بازطراحی: کارت شناور طلایی/سفید =====
+   قبلاً یک نوار تخت full-width بود که حس «جعبه سفید بی‌ربط
+   جلوی لوگو» می‌داد. الان یک کپسول شناور با حاشیه طلایی و
+   سایه ملایم است که با زبان بصری برند (بج طلایی/سفید) هم‌خوان است.
+   ========================================================= */
 .site-header{
   position: fixed;
-  inset-inline: 0;
-  top: 3px;
+  inset-inline: 12px;
+  top: 14px;
   z-index: 100;
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--c-line);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--c-line-gold);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(23,21,15,0.10), 0 0 0 1px rgba(201,162,39,0.05);
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+
+@media (min-width: 720px){
+  .site-header{ inset-inline: 24px; top: 18px; }
 }
 
 .header-inner{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  height: 64px;
+  height: 60px;
   gap: 16px;
+  padding: 0 10px 0 18px;
 }
 
-.logo{ display:flex; align-items:center; flex-shrink:0; }
+.logo{ display:flex; align-items:center; flex-shrink:0; padding-inline-start: 8px; }
 .logo-mark{
-  height: 44px;
+  height: 38px;
   width: auto;
   object-fit: contain;
   display:block;
@@ -235,7 +249,7 @@ a{ color: inherit; text-decoration:none; }
 
 .main-nav ul{
   display:flex;
-  gap: 28px;
+  gap: 26px;
   list-style:none;
   margin:0;
   padding:0;
@@ -270,6 +284,7 @@ a{ color: inherit; text-decoration:none; }
   font-size: 0.8rem;
   color: var(--c-gold-deep);
   flex-shrink:0;
+  padding-inline-end: 6px;
 }
 .timecode-dot{
   width:6px; height:6px; border-radius:50%;
@@ -277,18 +292,50 @@ a{ color: inherit; text-decoration:none; }
   box-shadow: 0 0 6px var(--c-gold);
 }
 
+/* ===== دکمه همبرگری با پترن — الهام از دکمه REC/شاتر دوربین ===== */
 .nav-toggle{
   display:none;
-  flex-direction:column;
-  gap:5px;
-  background:none;
-  border:none;
+  position: relative;
+  flex-direction: column;
+  align-items:center;
+  justify-content:center;
+  gap: 4px;
+  width: 42px;
+  height: 42px;
+  background: rgba(201,162,39,0.08);
+  border: 1px solid var(--c-line-gold);
+  border-radius: 50%;
   cursor:pointer;
-  padding: 8px;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
 }
+.nav-toggle:hover{ background: rgba(201,162,39,0.14); border-color: var(--c-gold); }
+
 .nav-toggle span{
-  width: 22px; height: 2px; background: var(--c-gold-deep);
-  display:block;
+  height: 2px;
+  background: var(--c-gold-deep);
+  border-radius: 2px;
+  transition: width var(--transition), transform var(--transition), opacity var(--transition), background var(--transition);
+}
+/* پترن سه‌خطی نامتقارن (شبیه waveform برند) به‌جای سه خط یکسان و بی‌روح */
+.nav-toggle span:nth-child(1){ width: 18px; }
+.nav-toggle span:nth-child(2){ width: 12px; align-self:flex-end; margin-inline-end: 2px; }
+.nav-toggle span:nth-child(3){ width: 18px; }
+
+/* حالت باز: تبدیل به ضربدر طلایی */
+.nav-toggle[aria-expanded="true"] span{ background: var(--c-gold); }
+.nav-toggle[aria-expanded="true"] span:nth-child(1){
+  width: 18px;
+  transform: translateY(6px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){
+  opacity: 0;
+  transform: translateX(6px);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){
+  width: 18px;
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ===== Hero / مقدمه ===== */
@@ -297,7 +344,7 @@ a{ color: inherit; text-decoration:none; }
   min-height: 100svh;
   display:flex;
   align-items:center;
-  padding-top: 90px;
+  padding-top: 120px;
   background:
     radial-gradient(circle at 85% 15%, rgba(201,162,39,0.10), transparent 45%),
     var(--c-white);
@@ -399,7 +446,6 @@ a{ color: inherit; text-decoration:none; }
   opacity: 1;
   transform: translateY(0);
 }
-/* فلش طلایی کوتاه هنگام برش، مثل جابه‌جایی کلیپ روی تایم‌لاین */
 .reveal-up::before{
   content:"";
   position:absolute;
@@ -483,19 +529,14 @@ a{ color: inherit; text-decoration:none; }
   .waveform span{ animation: none; transform: scaleY(0.8); }
 }
 
-/* ===== Patterns: هر بخش نشانه‌ی بصری مخصوص خودش (Timeline/Cut/Keyframe) ===== */
-/* Hero: Timecode ticks خیلی ظریف در پس‌زمینه */
+/* ===== Patterns ===== */
 .pattern-hero{
   background-image:
     repeating-linear-gradient(to bottom, rgba(201,162,39,0.05) 0 1px, transparent 1px 64px),
     radial-gradient(circle at 85% 15%, rgba(201,162,39,0.10), transparent 45%);
   background-color: var(--c-white);
 }
-
-/* Skills: خطوط افقی شبیه Track تدوین */
-.pattern-skills{
-  position: relative;
-}
+.pattern-skills{ position: relative; }
 .pattern-skills::before{
   content:"";
   position:absolute; inset:0;
@@ -503,11 +544,7 @@ a{ color: inherit; text-decoration:none; }
   opacity: 0.55;
   pointer-events:none;
 }
-
-/* Services: نقاط Keyframe خیلی ظریف */
-.pattern-services{
-  position: relative;
-}
+.pattern-services{ position: relative; }
 .pattern-services::before{
   content:"";
   position:absolute; inset:0;
@@ -516,23 +553,14 @@ a{ color: inherit; text-decoration:none; }
   opacity: 0.35;
   pointer-events:none;
 }
-
-/* Order: نشانه‌ی Cut / برش قطری ظریف */
-.pattern-order{
-  position: relative;
-  background: var(--c-paper);
-}
+.pattern-order{ position: relative; background: var(--c-paper); }
 .pattern-order::before{
   content:"";
   position:absolute; inset:0;
   background-image: repeating-linear-gradient(115deg, rgba(201,162,39,0.06) 0 1px, transparent 1px 40px);
   pointer-events:none;
 }
-
-/* Contact: نشانه‌های Signal / موج خیلی ظریف */
-.pattern-contact{
-  position: relative;
-}
+.pattern-contact{ position: relative; }
 .pattern-contact::before{
   content:"";
   position:absolute; inset:0;
@@ -540,7 +568,6 @@ a{ color: inherit; text-decoration:none; }
                      radial-gradient(circle at 88% 80%, rgba(201,162,39,0.08), transparent 40%);
   pointer-events:none;
 }
-
 .pattern-skills > .container,
 .pattern-services > .container,
 .pattern-order > .container,
@@ -578,7 +605,6 @@ section{ padding: 64px 0; }
   font-size: 0.95rem;
 }
 
-/* استگر ظاهرشدن آیتم‌ها هنگام برش والد (حس Cut پیاپی روی تایم‌لاین) */
 .track-item,
 .service-card{
   opacity: 0;
@@ -635,7 +661,6 @@ section{ padding: 64px 0; }
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 20px;
 }
-
 .service-card{
   background: var(--c-white);
   border: 1px solid var(--c-line);
@@ -740,22 +765,34 @@ section{ padding: 64px 0; }
 /* ===== Mobile ===== */
 @media (max-width: 820px){
   .cine-timeline{ display:none; }
+
   .main-nav{
     position: fixed;
-    inset-inline: 0;
-    top: 67px;
+    inset-inline: 12px;
+    top: 84px;
     background: var(--c-white);
-    border-bottom: 1px solid var(--c-line);
-    transform: translateY(-110%);
-    transition: transform var(--transition);
+    border: 1px solid var(--c-line-gold);
+    border-radius: 20px;
+    box-shadow: 0 16px 34px rgba(23,21,15,0.14);
+    overflow: hidden;
+    transform: translateY(-16px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition), opacity var(--transition);
   }
-  .main-nav.is-open{ transform: translateY(0); }
-  .main-nav ul{ flex-direction:column; gap:0; padding: 8px 24px 20px; }
+  .main-nav.is-open{
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .main-nav ul{ flex-direction:column; gap:0; padding: 8px 22px 16px; }
   .main-nav li{ border-bottom: 1px solid var(--c-line); }
+  .main-nav li:last-child{ border-bottom: none; }
   .main-nav a{ display:block; padding: 14px 4px; }
 
   .timecode{ display:none; }
   .nav-toggle{ display:flex; }
   section{ padding: 44px 0; }
   .reveal-section{ padding: 72px 0; }
+  .hero{ padding-top: 108px; }
 }
