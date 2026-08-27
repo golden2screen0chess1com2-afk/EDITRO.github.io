@@ -1,2170 +1,761 @@
-/* =========================================================
-   EDITRO — PREMIUM WEBSITE SYSTEM
-   White / Ivory / Champagne Gold
-   RTL / Responsive / Editorial / Cinematic
-   ========================================================= */
-
-
-/* =========================================================
-   01 — LOCAL FONTS
-   ========================================================= */
-
+/* ===== فونت Vazirmatn (لوکال، بدون وابستگی به گوگل) ===== */
 @font-face{
-  font-family:"Vazirmatn";
-  src:url("Vazirmatn-Regular.ttf") format("truetype");
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
+  font-family: "Vazirmatn";
+  src: url("Vazirmatn-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Vazirmatn";
+  src: url("Vazirmatn-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Vazirmatn";
+  src: url("Vazirmatn-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face{
+  font-family: "Vazirmatn";
+  src: url("Vazirmatn-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
-@font-face{
-  font-family:"Vazirmatn";
-  src:url("Vazirmatn-Medium.ttf") format("truetype");
-  font-weight:500;
-  font-style:normal;
-  font-display:swap;
-}
-
-@font-face{
-  font-family:"Vazirmatn";
-  src:url("Vazirmatn-ExtraBold.woff2") format("woff2");
-  font-weight:800;
-  font-style:normal;
-  font-display:swap;
-}
-
-@font-face{
-  font-family:"Vazirmatn";
-  src:url("Vazirmatn-Black.ttf") format("truetype");
-  font-weight:900;
-  font-style:normal;
-  font-display:swap;
-}
-
-
-/* =========================================================
-   02 — DESIGN TOKENS
-   ========================================================= */
-
+/* ===== Tokens (تم روشن: سفید و طلایی) ===== */
 :root{
+  --c-white: #FFFFFF;
+  --c-paper: #FFFFFF;
+  --c-ink: #17150F;
+  --c-ink-soft: rgba(23,21,15,0.7);
+  --c-gold: #C9A227;
+  --c-gold-strong: #B08A1E;
+  --c-gold-deep: #8F6E17;
+  --c-line: rgba(23,21,15,0.12);
+  --c-line-gold: rgba(201,162,39,0.35);
 
-  --white:#FFFFFF;
-  --paper:#FAF6ED;
+  --font-display: "Vazirmatn", sans-serif;
+  --font-body: "Vazirmatn", sans-serif;
+  --font-mono: "Vazirmatn", sans-serif;
 
-  --ink:#17150F;
-  --ink-soft:rgba(23,21,15,.68);
-
-  --gold:#C9A227;
-  --gold-light:#E8C874;
-  --gold-pale:#F5DFA0;
-  --gold-strong:#B08A1E;
-  --gold-deep:#8F6E17;
-
-  --line:rgba(23,21,15,.10);
-  --line-soft:rgba(23,21,15,.055);
-  --line-gold:rgba(201,162,39,.30);
-
-  --gold-gradient:
-    linear-gradient(
-      90deg,
-      #8F6E17 0%,
-      #C9A227 25%,
-      #F5DFA0 50%,
-      #C9A227 75%,
-      #8F6E17 100%
-    );
-
-  --gold-gradient-vertical:
-    linear-gradient(
-      180deg,
-      #8F6E17 0%,
-      #C9A227 30%,
-      #F5DFA0 50%,
-      #C9A227 70%,
-      #8F6E17 100%
-    );
-
-  --font:
-    "Vazirmatn",
-    sans-serif;
-
-  --container:
-    1100px;
-
-  --header-height:
-    72px;
-
-  --radius-sm:
-    6px;
-
-  --radius:
-    12px;
-
-  --radius-lg:
-    18px;
-
-  --ease:
-    cubic-bezier(.22,1,.36,1);
-
-  --speed:
-    220ms;
+  --container-w: 1100px;
+  --radius: 4px;
+  --radius-btn: 12px;
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --transition: 220ms ease;
+  --ease-cut: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+*, *::before, *::after{ box-sizing: border-box; }
 
-/* =========================================================
-   03 — RESET
-   ========================================================= */
+html{ scroll-behavior: smooth; }
 
-*,
-*::before,
-*::after{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-  scroll-padding-top:100px;
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body{
   margin:0;
-  background:var(--white);
-  color:var(--ink);
-  font-family:var(--font);
-  line-height:1.8;
-
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-
-  text-rendering:optimizeLegibility;
+  background: var(--c-white);
+  color: var(--c-ink);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
 }
 
-img{
-  display:block;
-  max-width:100%;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-button{
-  font:inherit;
-}
-
-::selection{
-  background:rgba(201,162,39,.20);
-  color:var(--ink);
-}
+img{ max-width:100%; display:block; }
+a{ color: inherit; text-decoration:none; }
 
 .container{
-  width:100%;
-  max-width:var(--container);
-
-  margin-inline:auto;
-
-  padding-inline:24px;
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 24px;
 }
-
-
-/* =========================================================
-   04 — ACCESSIBILITY
-   ========================================================= */
 
 .skip-link{
   position:absolute;
-
   right:-9999px;
   top:0;
-
-  z-index:9999;
-
-  padding:12px 20px;
-
-  background:var(--gold);
-  color:var(--white);
-
-  border-radius:
-    0 0 0 var(--radius-sm);
+  background: var(--c-gold);
+  color: var(--c-white);
+  padding: 12px 20px;
+  z-index: 999;
+  border-radius: 0 0 0 var(--radius);
 }
-
-.skip-link:focus{
-  right:0;
-}
+.skip-link:focus{ right:0; }
 
 :focus-visible{
-  outline:
-    2px solid var(--gold);
-
-  outline-offset:4px;
+  outline: 2px solid var(--c-gold-strong);
+  outline-offset: 3px;
 }
 
-
-/* =========================================================
-   05 — SCROLL PROGRESS BAR
-   ========================================================= */
-
+/* ===== نوار پیشرفت اسکرول (سیگنیچر بصری) ===== */
 .scrub-bar{
-  position:fixed;
-
-  top:0;
-  left:0;
-  right:0;
-
-  height:3px;
-
-  z-index:300;
-
-  background:
-    rgba(23,21,15,.08);
-
-  overflow:hidden;
+  position: fixed;
+  top:0; inset-inline:0;
+  height: 3px;
+  background: var(--c-line);
+  z-index: 200;
+  overflow: hidden;
 }
-
 .scrub-head{
-  position:absolute;
-
-  top:0;
-  left:0;
-
-  width:70px;
-  height:100%;
-
-  border-radius:999px;
-
-  background:
-    var(--gold-gradient);
-
-  box-shadow:
-    0 0 10px rgba(201,162,39,.45);
-
-  will-change:left;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 56px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--c-gold-deep), var(--c-gold), var(--c-gold-deep));
+  box-shadow: 0 0 8px rgba(201,162,39,0.45);
+  transition: left 60ms linear;
+  will-change: left;
 }
 
-
-/* =========================================================
-   06 — CINEMATIC TIMELINE
-   ========================================================= */
-
-/*
-   این بخش برای Timeline اصلی سایت است.
-
-   ساختار:
-   ─────●─────
-        │
-        ├──── بخش
-        │
-        ├──── بخش
-        │
-        └──── پایان
-*/
-
-.cinematic-timeline{
-  position:absolute;
-
-  top:0;
-  bottom:0;
-
-  left:50%;
-
-  width:1px;
-
-  z-index:5;
-
-  pointer-events:none;
-
-  transform:translateX(-50%);
+/* ===== Cinematic Timeline: سیگنیچر بصری اصلی سایت ===== */
+.cine-timeline{
+  position: fixed;
+  top: 90px;
+  bottom: 24px;
+  inset-inline-end: 22px;
+  width: 34px;
+  z-index: 90;
+  display: none;
+  pointer-events: none;
+}
+.cine-line{
+  position: absolute;
+  top: 0; bottom: 0;
+  inset-inline-start: 50%;
+  width: 2px;
+  margin-inline-start: -1px;
+  background: var(--c-line-gold);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.cine-fill{
+  position: absolute;
+  top: 0; inset-inline: 0;
+  height: 0%;
+  background: linear-gradient(to bottom, var(--c-gold-deep), var(--c-gold));
+  box-shadow: 0 0 6px rgba(201,162,39,0.5);
+  transition: height 80ms linear;
+}
+.cine-markers{
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.cine-marker{
+  position: absolute;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cine-dot{
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--c-white);
+  border: 2px solid var(--c-gold-deep);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.cine-marker.is-active .cine-dot{
+  background: var(--c-gold);
+  border-color: var(--c-gold);
+  box-shadow: 0 0 10px rgba(201,162,39,0.65);
+  transform: scale(1.25);
+}
+.cine-dot--end{ width: 13px; height: 13px; }
+.cine-marker--end.is-active .cine-dot--end{
+  box-shadow: 0 0 14px rgba(201,162,39,0.8);
+}
+.cine-label{
+  position: absolute;
+  inset-inline-end: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--c-ink-soft);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity var(--transition), transform var(--transition), color var(--transition);
+}
+.cine-marker.is-active .cine-label{
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--c-gold-deep);
 }
 
-
-/* خط پایه */
-
-.cinematic-timeline::before{
-  content:"";
-
-  position:absolute;
-
-  top:0;
-  bottom:0;
-
-  left:0;
-
-  width:1px;
-
-  background:
-    linear-gradient(
-      to bottom,
-      transparent,
-      rgba(201,162,39,.22) 8%,
-      rgba(201,162,39,.22) 92%,
-      transparent
-    );
+@media (min-width: 1180px){
+  .cine-timeline{ display: block; }
 }
 
-
-/* خط طلایی متحرک */
-
-.cinematic-timeline__progress{
-  position:absolute;
-
-  top:0;
-  left:0;
-
-  width:2px;
-
-  height:0;
-
-  transform:translateX(-50%);
-
-  background:
-    var(--gold-gradient-vertical);
-
-  box-shadow:
-    0 0 8px rgba(201,162,39,.35);
-
-  will-change:height;
-}
-
-
-/* Timeline marker */
-
-.timeline-marker{
-  position:absolute;
-
-  width:11px;
-  height:11px;
-
-  border:1px solid var(--gold);
-
-  background:var(--white);
-
-  border-radius:50%;
-
-  transform:
-    translate(-50%,-50%);
-
-  box-shadow:
-    0 0 0 4px rgba(201,162,39,.08);
-
-  transition:
-    background var(--speed) ease,
-    box-shadow var(--speed) ease,
-    transform var(--speed) ease;
-}
-
-.timeline-marker.is-active{
-  background:var(--gold);
-
-  box-shadow:
-    0 0 0 5px rgba(201,162,39,.12),
-    0 0 14px rgba(201,162,39,.35);
-
-  transform:
-    translate(-50%,-50%)
-    scale(1.08);
-}
-
-
-/* اتصال افقی Timeline */
-
-.timeline-branch{
-  position:absolute;
-
-  height:1px;
-
-  width:0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(201,162,39,.15),
-      var(--gold)
-    );
-
-  opacity:.8;
-
-  transition:
-    width 600ms var(--ease);
-}
-
-.timeline-branch.is-visible{
-  width:90px;
-}
-
-.timeline-branch--left{
-  right:0;
-}
-
-.timeline-branch--right{
-  left:0;
-
-  transform:
-    rotate(180deg);
-}
-
-
-/* Timeline labels */
-
-.timeline-label{
-  position:absolute;
-
-  white-space:nowrap;
-
-  font-size:.65rem;
-
-  letter-spacing:.04em;
-
-  color:rgba(23,21,15,.45);
-
-  opacity:.7;
-
-  transition:
-    color var(--speed) ease,
-    opacity var(--speed) ease;
-}
-
-.timeline-label.is-active{
-  color:var(--gold-deep);
-
-  opacity:1;
-}
-
-
-/* =========================================================
-   07 — HEADER
-   ========================================================= */
-
+/* ===== Header ===== */
 .site-header{
-  position:fixed;
-
-  top:3px;
-  left:0;
-  right:0;
-
-  z-index:200;
-
-  height:var(--header-height);
-
-  background:
-    rgba(255,255,255,.90);
-
-  backdrop-filter:
-    blur(14px);
-
-  -webkit-backdrop-filter:
-    blur(14px);
-
-  border-bottom:
-    1px solid var(--line);
+  position: fixed;
+  inset-inline: 0;
+  top: 3px;
+  z-index: 100;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--c-line);
 }
 
 .header-inner{
-  height:100%;
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
-  gap:24px;
+  height: 64px;
+  gap: 16px;
 }
 
-
-/* =========================================================
-   08 — LOGO
-   ========================================================= */
-
-.logo{
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  flex-shrink:0;
-
-  position:relative;
-}
-
+.logo{ display:flex; align-items:center; flex-shrink:0; }
 .logo-mark{
-  width:42px;
-  height:42px;
-
-  object-fit:contain;
-
-  transition:
-    transform var(--speed) var(--ease),
-    filter var(--speed) ease;
-}
-
-.logo:hover .logo-mark{
-  transform:scale(1.06);
-
-  filter:
-    drop-shadow(
-      0 5px 12px
-      rgba(201,162,39,.20)
-    );
-}
-
-
-/* =========================================================
-   09 — MAIN NAV
-   ========================================================= */
-
-.main-nav{
-  margin-inline:auto;
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  display:block;
 }
 
 .main-nav ul{
   display:flex;
-
-  align-items:center;
-
-  gap:2px;
-
+  gap: 28px;
   list-style:none;
-
   margin:0;
   padding:0;
 }
 
 .main-nav a{
+  font-size: 0.92rem;
+  color: var(--c-ink-soft);
   position:relative;
-
-  display:block;
-
-  padding:9px 14px;
-
-  border-radius:10px;
-
-  color:var(--ink-soft);
-
-  font-size:.86rem;
-  font-weight:500;
-
-  transition:
-    color var(--speed) ease,
-    background var(--speed) ease;
+  padding: 6px 2px;
+  transition: color var(--transition);
 }
-
+.main-nav a:hover{ color: var(--c-gold-deep); }
 .main-nav a::after{
   content:"";
-
   position:absolute;
-
-  right:50%;
-  bottom:3px;
-
-  width:0;
+  right:0; left:0; bottom:0;
   height:2px;
-
-  border-radius:999px;
-
-  background:
-    var(--gold-gradient);
-
-  transform:
-    translateX(50%);
-
-  transition:
-    width var(--speed) var(--ease);
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition);
 }
-
-.main-nav a:hover{
-  color:var(--gold-deep);
-
-  background:
-    rgba(201,162,39,.055);
-}
-
-.main-nav a:hover::after{
-  width:22px;
-}
-
-
-/* =========================================================
-   10 — TIMECODE
-   ========================================================= */
+.main-nav a.is-active{ color: var(--c-gold-deep); }
+.main-nav a.is-active::after{ transform: scaleX(1); }
 
 .timecode{
   display:flex;
-
   align-items:center;
-
   gap:8px;
-
-  direction:ltr;
-
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--c-gold-deep);
   flex-shrink:0;
-
-  color:var(--ink-soft);
-
-  font-size:.65rem;
 }
-
 .timecode-dot{
-  width:6px;
-  height:6px;
-
-  border-radius:50%;
-
-  background:var(--gold);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(201,162,39,.10);
-
-  animation:
-    recordPulse 1.8s ease-in-out infinite;
+  width:6px; height:6px; border-radius:50%;
+  background: var(--c-gold);
+  box-shadow: 0 0 6px var(--c-gold);
 }
-
-@keyframes recordPulse{
-
-  0%,100%{
-    opacity:.45;
-    transform:scale(.9);
-  }
-
-  50%{
-    opacity:1;
-    transform:scale(1);
-  }
-}
-
-
-/* =========================================================
-   11 — MOBILE NAV TOGGLE
-   ========================================================= */
 
 .nav-toggle{
   display:none;
-
-  width:42px;
-  height:42px;
-
-  padding:0;
-
-  align-items:center;
-  justify-content:center;
-
   flex-direction:column;
-
   gap:5px;
-
+  background:none;
+  border:none;
   cursor:pointer;
-
-  border:
-    1px solid var(--line-gold);
-
-  border-radius:10px;
-
-  background:var(--white);
+  padding: 8px;
 }
-
 .nav-toggle span{
-  width:18px;
-  height:2px;
-
-  border-radius:2px;
-
-  background:var(--ink);
-
-  transition:
-    transform var(--speed) ease,
-    opacity var(--speed) ease;
+  width: 22px; height: 2px; background: var(--c-gold-deep);
+  display:block;
 }
 
-
-/* =========================================================
-   12 — HERO
-   ========================================================= */
-
+/* ===== Hero / مقدمه ===== */
 .hero{
-  position:relative;
-
-  min-height:100svh;
-
+  position: relative;
+  min-height: 100svh;
   display:flex;
-
   align-items:center;
-
-  overflow:hidden;
-
-  padding:
-    145px 0
-    105px;
-
+  padding-top: 90px;
   background:
-
-    radial-gradient(
-      circle at 78% 30%,
-      rgba(201,162,39,.075),
-      transparent 30%
-    ),
-
-    linear-gradient(
-      135deg,
-      #FFFFFF 0%,
-      #FAF6ED 100%
-    );
+    radial-gradient(circle at 85% 15%, rgba(201,162,39,0.10), transparent 45%),
+    var(--c-white);
 }
 
-
-/* شبکه ظریف پس‌زمینه */
-
-.hero::before{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  pointer-events:none;
-
-  opacity:.30;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      transparent 49.7%,
-      rgba(201,162,39,.065) 50%,
-      transparent 50.3%
-    ),
-
-    linear-gradient(
-      0deg,
-      transparent 49.7%,
-      rgba(201,162,39,.045) 50%,
-      transparent 50.3%
-    );
-
-  background-size:
-    90px 90px,
-    90px 90px;
-
-  mask-image:
-    linear-gradient(
-      to bottom,
-      transparent,
-      black 22%,
-      black 78%,
-      transparent
-    );
-}
-
-.hero-inner{
-  position:relative;
-
-  z-index:10;
-}
-
-
-/* =========================================================
-   13 — HERO EYEBROW
-   ========================================================= */
+.hero-inner{ max-width: 780px; }
 
 .eyebrow{
   display:flex;
-
   align-items:center;
-
   gap:10px;
-
-  margin:
-    0 0 18px;
-
-  color:var(--gold-deep);
-
-  font-size:.82rem;
-  font-weight:500;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--c-gold-deep);
+  margin: 0 0 24px;
 }
-
-.eyebrow-line{
-  display:block;
-
-  width:38px;
-  height:1px;
-
-  background:
-    var(--gold-gradient);
-}
-
-
-/* =========================================================
-   14 — HERO TITLE
-   ========================================================= */
+.eyebrow-line{ width: 32px; height: 1px; background: var(--c-gold); }
 
 .hero-title{
-  margin:
-    0 0 20px;
-
-  font-family:var(--font);
-
-  font-weight:900;
-
-  font-size:
-    clamp(3.2rem,11vw,7rem);
-
-  line-height:1.04;
-
-  letter-spacing:-.025em;
-
-  background:
-    var(--gold-gradient);
-
-  -webkit-background-clip:text;
-  background-clip:text;
-
-  color:transparent;
-
-  filter:
-    drop-shadow(
-      0 8px 20px
-      rgba(201,162,39,.10)
-    );
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 11vw, 6.5rem);
+  line-height: 1.1;
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, var(--c-gold-deep) 0%, var(--c-gold) 22%, #F5E29A 50%, var(--c-gold) 78%, var(--c-gold-deep) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-
-
-/* =========================================================
-   15 — HERO SUBTITLE
-   ========================================================= */
 
 .hero-subtitle{
-  max-width:58ch;
-
-  margin:
-    0 0 36px;
-
-  color:var(--ink-soft);
-
-  font-size:
-    clamp(1rem,2vw,1.16rem);
+  max-width: 58ch;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--c-ink-soft);
+  margin: 0 0 36px;
 }
 
-
-/* =========================================================
-   16 — HERO ACTIONS
-   ========================================================= */
-
-.hero-actions{
-  display:flex;
-
-  align-items:center;
-
-  flex-wrap:wrap;
-
-  gap:18px;
-}
-
-
-/* =========================================================
-   17 — BUTTONS
-   ========================================================= */
+.hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
 
 .btn{
-  position:relative;
-
-  display:inline-flex;
-
-  align-items:center;
-  justify-content:center;
-
-  min-height:50px;
-
-  padding:
-    13px 28px;
-
-  overflow:hidden;
-
-  border-radius:
-    var(--radius);
-
-  font-size:.92rem;
-  font-weight:800;
-
-  transition:
-    transform var(--speed) var(--ease),
-    box-shadow var(--speed) ease,
-    background var(--speed) ease;
+  display:inline-block;
+  padding: 14px 30px;
+  border-radius: var(--radius-btn);
+  font-weight:700;
+  font-size: 0.95rem;
+  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
 }
+.btn-primary{ background: var(--c-gold); color: var(--c-white); }
+.btn-primary:hover{ background: var(--c-gold-strong); transform: translateY(-2px); }
 
-
-/* دکمه اصلی */
-
-.btn-primary{
-  color:var(--white);
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold-deep),
-      var(--gold),
-      var(--gold-light)
-    );
-
-  box-shadow:
-    0 8px 22px
-    rgba(201,162,39,.20);
-}
-
-
-/* Pattern داخل دکمه */
-
-.btn-primary::before{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  opacity:.18;
-
-  background:
-    repeating-linear-gradient(
-      135deg,
-      transparent 0 8px,
-      rgba(255,255,255,.55) 8px 9px,
-      transparent 9px 17px
-    );
-
-  transform:
-    translateX(100%);
-
-  transition:
-    transform 600ms var(--ease);
-}
-
-.btn-primary:hover::before{
-  transform:
-    translateX(0);
-}
-
-.btn-primary:hover{
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    0 14px 30px
-    rgba(201,162,39,.26);
-}
-
-
-/* دکمه Ghost */
-
-.btn-ghost{
-  color:var(--ink);
-
-  background:
-    rgba(255,255,255,.75);
-
-  border:
-    1px solid var(--line-gold);
-}
-
-.btn-ghost:hover{
-  color:var(--gold-deep);
-
-  border-color:
-    var(--gold);
-
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    0 8px 20px
-    rgba(201,162,39,.10);
-}
-
-
-/* =========================================================
-   18 — HERO VERTICAL FILM STRIP
-   ========================================================= */
-
-.filmstrip--vertical{
-  position:absolute;
-
-  top:90px;
-  bottom:0;
-
-  right:6%;
-
-  width:2px;
-
-  opacity:.32;
-
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      var(--gold) 0 5px,
-      transparent 5px 28px
-    );
-
-  display:none;
-}
-
-@media (min-width:1000px){
-
-  .filmstrip--vertical{
-    display:block;
-  }
-}
-
-
-/* =========================================================
-   19 — AUDIO WAVEFORM
-   ========================================================= */
-
-.waveform{
-  display:inline-flex;
-
-  align-items:flex-end;
-
-  gap:3px;
-
-  height:24px;
-
-  margin-inline-start:4px;
-
-  vertical-align:middle;
-}
-
-.waveform span{
-  width:3px;
-
-  border-radius:2px;
-
-  background:var(--gold);
-
-  animation:
-    wavepulse 1.2s ease-in-out infinite;
-}
-
-.waveform span:nth-child(1){
-  height:40%;
-  animation-delay:0ms;
-}
-
-.waveform span:nth-child(2){
-  height:70%;
-  animation-delay:90ms;
-}
-
-.waveform span:nth-child(3){
-  height:100%;
-  animation-delay:180ms;
-}
-
-.waveform span:nth-child(4){
-  height:55%;
-  animation-delay:270ms;
-}
-
-.waveform span:nth-child(5){
-  height:85%;
-  animation-delay:360ms;
-}
-
-.waveform span:nth-child(6){
-  height:45%;
-  animation-delay:450ms;
-}
-
-.waveform span:nth-child(7){
-  height:65%;
-  animation-delay:540ms;
-}
-
-.waveform--light span{
-  background:var(--gold);
-  opacity:.9;
-}
-
-@keyframes wavepulse{
-
-  0%,100%{
-    transform:scaleY(.5);
-  }
-
-  50%{
-    transform:scaleY(1);
-  }
-}
-
-
-/* =========================================================
-   20 — SCROLL CUE
-   ========================================================= */
+.btn-ghost{ border: 1px solid var(--c-line-gold); color: var(--c-ink); }
+.btn-ghost:hover{ border-color: var(--c-gold); color: var(--c-gold-deep); transform: translateY(-2px); }
 
 .scroll-cue{
   position:absolute;
-
-  bottom:30px;
-
-  left:50%;
-
+  bottom: 32px;
+  inset-inline-start: 50%;
+  transform: translateX(50%);
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-
   gap:8px;
-
-  transform:
-    translateX(-50%);
-
-  color:var(--ink-soft);
-
-  font-size:.68rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--c-ink-soft);
 }
-
 .scroll-line{
+  width:1px; height: 34px;
+  background: var(--c-line);
   position:relative;
-
-  width:1px;
-  height:34px;
-
   overflow:hidden;
-
-  background:var(--line);
 }
-
 .scroll-line::after{
   content:"";
-
   position:absolute;
-
-  left:0;
-  top:-100%;
-
-  width:100%;
-  height:100%;
-
-  background:var(--gold);
-
-  animation:
-    scrollmove 1.8s ease-in-out infinite;
+  top:-100%; left:0;
+  width:100%; height:100%;
+  background: var(--c-gold);
+  animation: scrollmove 1.8s ease-in-out infinite;
 }
-
 @keyframes scrollmove{
-
-  0%{
-    top:-100%;
-  }
-
-  60%,100%{
-    top:100%;
-  }
+  0%{ top:-100%; }
+  60%{ top:100%; }
+  100%{ top:100%; }
 }
 
-
-/* =========================================================
-   21 — SECTION REVEAL
-   ========================================================= */
-
+/* ===== Scroll reveal: افکت شبیه Cut Transition در تدوین ===== */
 .reveal-up{
-  position:relative;
-
-  opacity:0;
-
-  transform:
-    translateY(28px);
-
+  position: relative;
+  opacity: 0;
+  transform: translateY(28px);
   transition:
-    opacity 550ms var(--ease),
-    transform 550ms var(--ease);
+    opacity 550ms var(--ease-cut),
+    transform 550ms var(--ease-cut);
 }
-
 .reveal-up.is-visible{
-  opacity:1;
-
-  transform:
-    translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
-
-
-/* خط Cut */
-
+/* فلش طلایی کوتاه هنگام برش، مثل جابه‌جایی کلیپ روی تایم‌لاین */
 .reveal-up::before{
   content:"";
-
   position:absolute;
-
-  top:0;
-
-  left:0;
-  right:0;
-
-  height:2px;
-
+  inset-inline: 0;
+  top:0; height:2px;
+  background: linear-gradient(to left, transparent, var(--c-gold), transparent);
   opacity:0;
-
-  transform:
-    scaleX(0);
-
-  transform-origin:right;
-
-  background:
-    linear-gradient(
-      to left,
-      transparent,
-      var(--gold),
-      transparent
-    );
+  transform: scaleX(0);
+  transform-origin: right;
 }
-
 .reveal-up.is-visible::before{
-  animation:
-    cutflash 550ms var(--ease) both;
+  opacity:1;
+  animation: cutflash 550ms var(--ease-cut) both;
 }
-
 @keyframes cutflash{
-
-  0%{
-    transform:scaleX(0);
-    opacity:1;
-  }
-
-  70%{
-    transform:scaleX(1);
-    opacity:.8;
-  }
-
-  100%{
-    transform:scaleX(1);
-    opacity:0;
-  }
+  0%{ transform: scaleX(0); opacity:1; }
+  70%{ transform: scaleX(1); opacity:0.8; }
+  100%{ transform: scaleX(1); opacity:0; }
 }
 
-
-/* =========================================================
-   22 — FILMSTRIP DIVIDERS
-   ========================================================= */
-
+/* ===== Film Strip: دیوایدر پرفراژدار بین بخش‌ها ===== */
 .filmstrip{
-  height:22px;
-
-  border-top:
-    1px solid var(--line);
-
-  border-bottom:
-    1px solid var(--line);
-
+  height: 22px;
   background:
-
     repeating-linear-gradient(
       to left,
-      var(--white) 0 10px,
+      var(--c-white) 0 10px,
       transparent 10px 22px
     ),
-
-    radial-gradient(
-      circle,
-      var(--line-gold) 2.5px,
-      transparent 2.6px
+    radial-gradient(circle, var(--c-line-gold) 2.5px, transparent 2.6px);
+  background-size: 100% 100%, 22px 100%;
+  background-position: center, center;
+  border-top: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line);
+}
+.filmstrip--vertical{
+  position:absolute;
+  inset-inline-end: 6%;
+  top: 90px; bottom: 0;
+  width: 1px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      var(--c-gold) 0 4px,
+      transparent 4px 26px
     );
-
-  background-size:
-    100% 100%,
-    22px 100%;
+  opacity: 0.4;
+  display:none;
+}
+@media (min-width: 1000px){
+  .filmstrip--vertical{ display:block; }
 }
 
-
-/* =========================================================
-   23 — SHARED SECTION
-   ========================================================= */
-
-section{
-  position:relative;
-
-  padding:
-    76px 0;
+/* ===== Audio Waveform: عنصر تزئینی صوتی ===== */
+.waveform{
+  display:inline-flex;
+  align-items:flex-end;
+  gap: 3px;
+  height: 24px;
+  margin-inline-start: 4px;
 }
+.waveform span{
+  width: 3px;
+  border-radius: 2px;
+  background: var(--c-gold);
+  animation: wavepulse 1.2s ease-in-out infinite;
+}
+.waveform span:nth-child(1){ height: 40%; animation-delay: 0ms; }
+.waveform span:nth-child(2){ height: 70%; animation-delay: 90ms; }
+.waveform span:nth-child(3){ height: 100%; animation-delay: 180ms; }
+.waveform span:nth-child(4){ height: 55%; animation-delay: 270ms; }
+.waveform span:nth-child(5){ height: 85%; animation-delay: 360ms; }
+.waveform span:nth-child(6){ height: 45%; animation-delay: 450ms; }
+.waveform span:nth-child(7){ height: 65%; animation-delay: 540ms; }
+.waveform--light span{ background: var(--c-gold); opacity: 0.9; }
+@keyframes wavepulse{
+  0%, 100%{ transform: scaleY(0.5); }
+  50%{ transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: reduce){
+  .waveform span{ animation: none; transform: scaleY(0.8); }
+}
+
+/* ===== Patterns: هر بخش نشانه‌ی بصری مخصوص خودش (Timeline/Cut/Keyframe) ===== */
+/* Hero: Timecode ticks خیلی ظریف در پس‌زمینه */
+.pattern-hero{
+  background-image:
+    repeating-linear-gradient(to bottom, rgba(201,162,39,0.05) 0 1px, transparent 1px 64px),
+    radial-gradient(circle at 85% 15%, rgba(201,162,39,0.10), transparent 45%);
+  background-color: var(--c-white);
+}
+
+/* Skills: خطوط افقی شبیه Track تدوین */
+.pattern-skills{
+  position: relative;
+}
+.pattern-skills::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: repeating-linear-gradient(to bottom, var(--c-line) 0 1px, transparent 1px 46px);
+  opacity: 0.55;
+  pointer-events:none;
+}
+
+/* Services: نقاط Keyframe خیلی ظریف */
+.pattern-services{
+  position: relative;
+}
+.pattern-services::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: radial-gradient(var(--c-line-gold) 1px, transparent 1.4px);
+  background-size: 34px 34px;
+  opacity: 0.35;
+  pointer-events:none;
+}
+
+/* Order: نشانه‌ی Cut / برش قطری ظریف */
+.pattern-order{
+  position: relative;
+  background: var(--c-paper);
+}
+.pattern-order::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: repeating-linear-gradient(115deg, rgba(201,162,39,0.06) 0 1px, transparent 1px 40px);
+  pointer-events:none;
+}
+
+/* Contact: نشانه‌های Signal / موج خیلی ظریف */
+.pattern-contact{
+  position: relative;
+}
+.pattern-contact::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image: radial-gradient(circle at 12% 20%, rgba(201,162,39,0.08), transparent 40%),
+                     radial-gradient(circle at 88% 80%, rgba(201,162,39,0.08), transparent 40%);
+  pointer-events:none;
+}
+
+.pattern-skills > .container,
+.pattern-services > .container,
+.pattern-order > .container,
+.pattern-contact > .container{
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Section shared ===== */
+section{ padding: 64px 0; }
 
 .scene-label{
   display:inline-block;
-
-  margin-bottom:20px;
-
-  padding:
-    5px 14px;
-
-  border:
-    1px solid var(--line-gold);
-
-  border-radius:999px;
-
-  color:var(--gold-deep);
-
-  font-size:.72rem;
-
-  letter-spacing:.04em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--c-gold-deep);
+  border: 1px solid var(--c-line-gold);
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin-bottom: 20px;
 }
 
 .section-title{
-  margin:
-    0 0 28px;
-
-  color:var(--ink);
-
-  font-family:var(--font);
-
-  font-size:
-    clamp(1.9rem,4vw,2.7rem);
-
-  font-weight:800;
-
-  line-height:1.35;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--c-ink);
+  margin: 0 0 28px;
 }
 
 .section-note{
-  margin:
-    -12px 0 32px;
-
-  color:var(--ink-soft);
-
-  font-size:.95rem;
+  color: var(--c-ink-soft);
+  margin: -12px 0 32px;
+  font-size: 0.95rem;
 }
 
-
-/* =========================================================
-   24 — SKILLS
-   ========================================================= */
-
-.skills{
-  background:var(--paper);
+/* استگر ظاهرشدن آیتم‌ها هنگام برش والد (حس Cut پیاپی روی تایم‌لاین) */
+.track-item,
+.service-card{
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms var(--ease-cut), transform 500ms var(--ease-cut);
 }
+.reveal-up.is-visible .track-item,
+.reveal-up.is-visible .service-card{
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-up.is-visible .track-item:nth-child(1),
+.reveal-up.is-visible .service-card:nth-child(1){ transition-delay: 60ms; }
+.reveal-up.is-visible .track-item:nth-child(2),
+.reveal-up.is-visible .service-card:nth-child(2){ transition-delay: 140ms; }
+.reveal-up.is-visible .track-item:nth-child(3),
+.reveal-up.is-visible .service-card:nth-child(3){ transition-delay: 220ms; }
+.reveal-up.is-visible .service-card:nth-child(4){ transition-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce){
+  .track-item, .service-card{
+    opacity:1; transform:none; transition:none;
+  }
+}
+
+/* ===== Skills ===== */
+.skills{ background: var(--c-paper); }
 
 .track-list{
   list-style:none;
-
-  margin:0;
-  padding:0;
-
-  border-top:
-    1px solid var(--line);
+  margin:0; padding:0;
+  border-top: 1px solid var(--c-line);
 }
-
 .track-item{
   display:flex;
-
+  gap: 24px;
   align-items:flex-start;
-
-  gap:24px;
-
-  padding:
-    28px 0;
-
-  border-bottom:
-    1px solid var(--line);
-
-  opacity:0;
-
-  transform:
-    translateY(16px);
-
-  transition:
-    opacity 500ms var(--ease),
-    transform 500ms var(--ease);
+  padding: 26px 0;
+  border-bottom: 1px solid var(--c-line);
 }
-
-.reveal-up.is-visible .track-item{
-  opacity:1;
-
-  transform:
-    translateY(0);
-}
-
-.reveal-up.is-visible .track-item:nth-child(1){
-  transition-delay:60ms;
-}
-
-.reveal-up.is-visible .track-item:nth-child(2){
-  transition-delay:140ms;
-}
-
-.reveal-up.is-visible .track-item:nth-child(3){
-  transition-delay:220ms;
-}
-
 .track-index{
-  position:relative;
-
+  font-family: var(--font-mono);
+  color: var(--c-gold-deep);
+  font-size: 1.1rem;
+  padding-top: 4px;
   flex-shrink:0;
-
-  padding-top:4px;
-
-  color:var(--gold-deep);
-
-  font-size:1rem;
 }
+.track-body h3{ margin: 0 0 6px; color: var(--c-ink); font-size: 1.15rem; }
+.track-body p{ margin:0; color: var(--c-ink-soft); max-width: 60ch; }
 
-.track-index::after{
-  content:"";
-
-  position:absolute;
-
-  top:13px;
-
-  right:-15px;
-
-  width:5px;
-  height:5px;
-
-  border-radius:50%;
-
-  background:var(--gold);
-}
-
-.track-body h3{
-  margin:
-    0 0 7px;
-
-  color:var(--ink);
-
-  font-size:1.15rem;
-
-  font-weight:800;
-}
-
-.track-body p{
-  max-width:60ch;
-
-  margin:0;
-
-  color:var(--ink-soft);
-}
-
-
-/* =========================================================
-   25 — SERVICES
-   ========================================================= */
-
+/* ===== Services / Portfolio cards ===== */
 .card-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(230px,1fr)
-    );
-
-  gap:20px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
 }
 
 .service-card{
-  position:relative;
-
-  overflow:hidden;
-
-  padding:
-    30px 25px;
-
-  background:var(--white);
-
-  border:
-    1px solid var(--line);
-
-  border-radius:
-    var(--radius-lg);
-
-  opacity:0;
-
-  transform:
-    translateY(16px);
-
-  transition:
-    opacity 500ms var(--ease),
-    transform 500ms var(--ease),
-    border-color var(--speed) ease,
-    box-shadow var(--speed) ease;
+  background: var(--c-white);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  padding: 28px 24px;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
-
-
-/* Pattern اختصاصی خدمات */
-
-.service-card::before{
-  content:"";
-
-  position:absolute;
-
-  top:-45px;
-  left:-45px;
-
-  width:115px;
-  height:115px;
-
-  border:
-    1px solid rgba(201,162,39,.15);
-
-  border-radius:50%;
-
-  box-shadow:
-    20px 20px 0 -19px
-    rgba(201,162,39,.12),
-
-    40px 40px 0 -39px
-    rgba(201,162,39,.10);
-
-  transition:
-    transform 500ms var(--ease);
-}
-
-.service-card::after{
-  content:"";
-
-  position:absolute;
-
-  top:0;
-  right:0;
-
-  width:3px;
-  height:0;
-
-  background:
-    var(--gold-gradient-vertical);
-
-  transition:
-    height 500ms var(--ease);
-}
-
 .service-card:hover{
-  border-color:var(--gold);
+  border-color: var(--c-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(201,162,39,0.12);
+}
+.service-card h3{ color: var(--c-gold-deep); font-size: 1.05rem; margin: 0 0 10px; }
+.service-card p{ margin:0; color: var(--c-ink-soft); font-size: 0.95rem; }
 
-  transform:
-    translateY(-5px);
-
-  box-shadow:
-    0 14px 32px
-    rgba(201,162,39,.11);
+/* ===== Order: ثبت سفارش ===== */
+.order{ background: var(--c-paper); }
+.order-card{
+  max-width: 640px;
+  background: var(--c-white);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  padding: 40px 32px;
+  text-align: center;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.order-card:hover{
+  border-color: var(--c-gold);
+  box-shadow: 0 12px 28px rgba(201,162,39,0.12);
+  transform: translateY(-3px);
+}
+.order-text{
+  color: var(--c-ink-soft);
+  font-size: 1.05rem;
+  max-width: 48ch;
+  margin: 0 auto 28px;
 }
 
-.service-card:hover::before{
-  transform:
-    translate(12px,12px);
-}
-
-.service-card:hover::after{
-  height:100%;
-}
-
-.reveal-up.is-visible .service-card{
-  opacity:1;
-
-  transform:
-    translateY(0);
-}
-
-.reveal-up.is-visible .service-card:nth-child(1){
-  transition-delay:60ms;
-}
-
-.reveal-up.is-visible .service-card:nth-child(2){
-  transition-delay:140ms;
-}
-
-.reveal-up.is-visible .service-card:nth-child(3){
-  transition-delay:220ms;
-}
-
-.service-card h3{
-  position:relative;
-
-  z-index:1;
-
-  margin:
-    0 0 10px;
-
-  color:var(--gold-deep);
-
-  font-size:1.05rem;
-
-  font-weight:800;
-}
-
-.service-card p{
-  position:relative;
-
-  z-index:1;
-
-  margin:0;
-
-  color:var(--ink-soft);
-
-  font-size:.95rem;
-}
-
-
-/* =========================================================
-   26 — CONTACT
-   ========================================================= */
-
-.contact{
-  position:relative;
-
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #FFFFFF 0%,
-      #FAF6ED 100%
-    );
-}
-
-.contact::before{
-  content:"";
-
-  position:absolute;
-
-  left:-180px;
-  bottom:-220px;
-
-  width:420px;
-  height:420px;
-
-  border:
-    1px solid
-    rgba(201,162,39,.10);
-
-  border-radius:50%;
-
-  box-shadow:
-    80px -50px 0 -1px
-    rgba(201,162,39,.06),
-
-    160px -100px 0 -1px
-    rgba(201,162,39,.04);
-
-  pointer-events:none;
-}
-
-.contact-grid{
-  position:relative;
-
-  z-index:2;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(220px,1fr)
-    );
-
-  gap:20px;
-
-  max-width:760px;
-}
-
-.contact-card{
-  position:relative;
-
-  overflow:hidden;
-
-  display:flex;
-
-  flex-direction:column;
-
-  gap:8px;
-
-  padding:
-    24px;
-
-  background:
-    rgba(255,255,255,.82);
-
-  border:
-    1px solid var(--line);
-
-  border-radius:
-    var(--radius-lg);
-
-  transition:
-    border-color var(--speed) ease,
-    transform var(--speed) var(--ease),
-    box-shadow var(--speed) ease;
-}
-
-
-/* Pattern ارتباط */
-
-.contact-card::before{
-  content:"";
-
-  position:absolute;
-
-  right:-20px;
-  bottom:-25px;
-
-  width:90px;
-  height:90px;
-
-  opacity:.55;
-
-  transform:
-    rotate(15deg);
-
-  background:
-
-    linear-gradient(
-      90deg,
-      transparent 48%,
-      rgba(201,162,39,.18) 49% 51%,
-      transparent 52%
-    ),
-
-    linear-gradient(
-      0deg,
-      transparent 48%,
-      rgba(201,162,39,.18) 49% 51%,
-      transparent 52%
-    );
-
-  background-size:
-    18px 18px;
-
-  pointer-events:none;
-}
-
-.contact-card:hover{
-  border-color:
-    var(--gold);
-
-  transform:
-    translateY(-4px);
-
-  box-shadow:
-    0 12px 26px
-    rgba(201,162,39,.10);
-}
-
-.contact-label{
-  position:relative;
-
-  z-index:1;
-
-  color:var(--gold-deep);
-
-  font-size:.75rem;
-}
-
-.contact-value{
-  position:relative;
-
-  z-index:1;
-
-  color:var(--ink);
-
-  font-size:1.05rem;
-
-  font-weight:800;
-}
-
-
-/* =========================================================
-   27 — ABOUT
-   آخرین بخش محتوایی
-   ========================================================= */
-
+/* ===== Reveal: نام و درباره من ===== */
 .reveal-section{
-  position:relative;
-
-  overflow:hidden;
-
-  padding:
-    105px 0;
-
-  background:
-    var(--ink);
-
-  color:var(--white);
-
-  text-align:center;
+  background: var(--c-ink);
+  color: var(--c-white);
+  text-align: center;
+  padding: 96px 0;
 }
-
-
-/* Pattern نهایی */
-
-.reveal-section::before{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  opacity:.12;
-
-  pointer-events:none;
-
-  background:
-
-    linear-gradient(
-      90deg,
-      transparent 49.7%,
-      var(--gold) 50%,
-      transparent 50.3%
-    ),
-
-    linear-gradient(
-      0deg,
-      transparent 49.7%,
-      var(--gold) 50%,
-      transparent 50.3%
-    );
-
-  background-size:
-    90px 90px,
-    90px 90px;
-
-  mask-image:
-    radial-gradient(
-      ellipse at center,
-      black,
-      transparent 72%
-    );
-}
-
-.reveal-section .container{
-  position:relative;
-
-  z-index:2;
-}
-
 .reveal-section .scene-label{
-  color:var(--gold);
-
-  border-color:
-    rgba(201,162,39,.40);
+  color: var(--c-gold);
+  border-color: rgba(201,162,39,0.4);
 }
-
 .reveal-name{
-  margin:
-    0 0 14px;
-
-  font-family:var(--font);
-
-  font-weight:900;
-
-  font-size:
-    clamp(2.6rem,9vw,5.5rem);
-
-  line-height:1.1;
-
-  letter-spacing:-.02em;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--gold),
-      #F0D77A,
-      var(--gold)
-    );
-
-  -webkit-background-clip:text;
-  background-clip:text;
-
-  color:transparent;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 9vw, 5.5rem);
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, var(--c-gold), #F0D77A, var(--c-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-
 .reveal-role{
-  margin:
-    0 0 32px;
-
-  color:
-    rgba(255,255,255,.65);
-
-  font-size:.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.65);
+  margin: 0 0 32px;
 }
-
 .reveal-text{
-  max-width:62ch;
-
-  margin:
-    0 auto 14px;
-
-  color:
-    rgba(255,255,255,.80);
-
-  font-size:
-    1.03rem;
+  max-width: 62ch;
+  margin: 0 auto;
+  color: rgba(255,255,255,0.8);
+  font-size: 1.05rem;
 }
 
+/* ===== Contact ===== */
+.contact-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 640px;
+}
+.contact-card{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  background: var(--c-paper);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-card);
+  padding: 22px 24px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.contact-card:hover{ border-color: var(--c-gold); transform: translateY(-3px); }
+.contact-label{ font-family: var(--font-mono); font-size: 0.75rem; color: var(--c-gold-deep); }
+.contact-value{ font-size: 1.1rem; color: var(--c-ink); font-weight:700; }
 
-/* =========================================================
-   28 — FOOTER
-   ========================================================= */
-
+/* ===== Footer ===== */
 .site-footer{
-  position:relative;
-
-  padding:
-    30px 0;
-
-  background:var(--white);
-
-  border-top:
-    1px solid var(--line);
+  border-top: 1px solid var(--c-line);
+  padding: 28px 0;
 }
+.footer-inner{ font-size: 0.85rem; color: var(--c-ink-soft); text-align:center; }
 
-.footer-inner{
-  color:var(--ink-soft);
-
-  text-align:center;
-
-  font-size:.82rem;
-}
-
-
-/* =========================================================
-   29 — MOBILE
-   ========================================================= */
-
-@media (max-width:820px){
-
-  :root{
-    --header-height:64px;
-  }
-
-  .header-inner{
-    gap:12px;
-  }
-
-  .logo-mark{
-    width:38px;
-    height:38px;
-  }
-
-
-  /* Navigation */
-
+/* ===== Mobile ===== */
+@media (max-width: 820px){
+  .cine-timeline{ display:none; }
   .main-nav{
-    position:fixed;
-
-    top:67px;
-
-    left:0;
-    right:0;
-
-    background:
-      rgba(255,255,255,.97);
-
-    backdrop-filter:
-      blur(14px);
-
-    -webkit-backdrop-filter:
-      blur(14px);
-
-    border-bottom:
-      1px solid var(--line);
-
-    transform:
-      translateY(-110%);
-
-    transition:
-      transform var(--speed) var(--ease);
+    position: fixed;
+    inset-inline: 0;
+    top: 67px;
+    background: var(--c-white);
+    border-bottom: 1px solid var(--c-line);
+    transform: translateY(-110%);
+    transition: transform var(--transition);
   }
+  .main-nav.is-open{ transform: translateY(0); }
+  .main-nav ul{ flex-direction:column; gap:0; padding: 8px 24px 20px; }
+  .main-nav li{ border-bottom: 1px solid var(--c-line); }
+  .main-nav a{ display:block; padding: 14px 4px; }
 
-  .main-nav.is-open{
-    transform:
-      translateY(0);
-  }
-
-  .main-nav ul{
-    flex-direction:column;
-
-    align-items:stretch;
-
-    gap:0;
-
-    padding:
-      8px 24px 20px;
-  }
-
-  .main-nav li{
-    border-bottom:
-      1px solid var(--line);
-  }
-
-  .main-nav a{
-    padding:
-      14px 4px;
-  }
-
-  .timecode{
-    display:none;
-  }
-
-  .nav-toggle{
-    display:flex;
-  }
-
-
-  /* Hero */
-
-  .hero{
-    padding:
-      125px 0
-      90px;
-  }
-
-  .hero-title{
-    font-size:
-      clamp(3rem,20vw,5rem);
-  }
-
-  .hero-subtitle{
-    font-size:.98rem;
-  }
-
-  .hero-actions{
-    align-items:stretch;
-  }
-
-
-  /* Timeline موبایل */
-
-  .cinematic-timeline{
-    left:18px;
-
-    transform:none;
-  }
-
-  .cinematic-timeline::before{
-    opacity:.55;
-  }
-
-  .timeline-branch.is-visible{
-    width:35px;
-  }
-
-
-  /* Sections */
-
-  section{
-    padding:
-      54px 0;
-  }
-
-  .reveal-section{
-    padding:
-      76px 0;
-  }
-
-
-  /* Contact */
-
-  .contact-grid{
-    grid-template-columns:1fr;
-  }
+  .timecode{ display:none; }
+  .nav-toggle{ display:flex; }
+  section{ padding: 44px 0; }
+  .reveal-section{ padding: 72px 0; }
 }
-
-
-/* =========================================================
-   30 — SMALL PHONES
-   ========================================================= */
-
-@media (max-width:480px){
-
-  .container{
-    padding-inline:18px;
-  }
-
-  .hero{
-    padding-top:115px;
-  }
-
-  .hero-title{
-    font-size:
-      clamp(2.8rem,19vw,4.2rem);
-  }
-
-  .hero-actions{
-    flex-direction:column;
-
-    align-items:stretch;
-  }
-
-  .btn{
-    width:100%;
-  }
-
-  .waveform{
-    display:none;
-  }
-
-  .section-title{
-    font-size:1.85rem;
-  }
-
-  .scene-label{
-    font-size:.67rem;
-  }
-
-  .track-item{
-    gap:18px;
-
-    padding:
-      23px 0;
-  }
-
-  .track-body h3{
-    font-size:1.03rem;
-  }
-
-  .track-body p{
-    font-size:.90rem;
-  }
-
-  .reveal-name{
-    font-size:
-      clamp(2.5rem,16vw,4rem);
-  }
-
-  .reveal-text{
-    font-size:.94rem;
-  }
-
-  .timeline-label{
-    display:none;
-  }
-}
-
-
-/* =========================================================
-   31 — REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion:reduce){
-
-  html{
-    scroll-behavior:auto;
-  }
-
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.01ms !important;
-  }
-
-  .reveal-up,
-  .track-item,
-  .service-card{
-    opacity:1;
-
-    transform:none;
-
-    transition:none;
-  }
-
-  .timecode-dot,
-  .waveform span,
-  .scroll-line::after{
-    animation:none;
-  }
-  }
