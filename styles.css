@@ -126,8 +126,8 @@ a{ color: inherit; text-decoration:none; }
 }
 
 /* =========================================================
-   ===== Cinematic Timeline — نوار عمودی طلایی، همیشه نمایان،
-   ثابت روی لبه‌ی چپ فیزیکی صفحه (هم موبایل هم دسکتاپ) =====
+   ===== Cinematic Timeline — نسخه‌ی جدید: تصویر تزئینی
+   عمودی طلایی/مشکی (واترمارک ظریف)، خیلی کوچک، فقط دسکتاپ =====
    ========================================================= */
 .cine-timeline{
   position: fixed;
@@ -211,18 +211,40 @@ a{ color: inherit; text-decoration:none; }
   transform: translateY(-50%) translateX(0);
 }
 
+/* تصویر تزئینی تایم‌لاین: خیلی کوچک، پشت نقاط تعاملی، فقط جنبه‌ی بصری/برند */
+.cine-art{
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 14px;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.55;
+  filter: saturate(1.05);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+@media (max-width: 999px){
+  /* روی موبایل این عنصر فضا نگیره و حس شلوغی نده */
+  .cine-timeline{ display:none; }
+}
+
 @media (min-width: 1000px){
   .cine-timeline{ left: 26px; width: 36px; }
+  .cine-art{ width: 16px; }
   .cine-label{ left: 26px; }
   body{ padding-left: 66px; }
+}
+@media (max-width: 999px){
+  body{ padding-left: 0; }
 }
 
 
 /* =========================================================
-   ===== HEADER — بازطراحی: کارت شناور طلایی/سفید =====
-   قبلاً یک نوار تخت full-width بود که حس «جعبه سفید بی‌ربط
-   جلوی لوگو» می‌داد. الان یک کپسول شناور با حاشیه طلایی و
-   سایه ملایم است که با زبان بصری برند (بج طلایی/سفید) هم‌خوان است.
+   ===== HEADER — کارت شناور طلایی/سفید =====
    ========================================================= */
 .site-header{
   position: fixed;
@@ -315,7 +337,7 @@ a{ color: inherit; text-decoration:none; }
   box-shadow: 0 0 6px var(--c-gold);
 }
 
-/* ===== دکمه همبرگری با پترن — الهام از دکمه REC/شاتر دوربین ===== */
+/* ===== دکمه همبرگری با پترن ===== */
 .nav-toggle{
   display:none;
   position: relative;
@@ -341,12 +363,10 @@ a{ color: inherit; text-decoration:none; }
   border-radius: 2px;
   transition: width var(--transition), transform var(--transition), opacity var(--transition), background var(--transition);
 }
-/* پترن سه‌خطی نامتقارن (شبیه waveform برند) به‌جای سه خط یکسان و بی‌روح */
 .nav-toggle span:nth-child(1){ width: 18px; }
 .nav-toggle span:nth-child(2){ width: 12px; align-self:flex-end; margin-inline-end: 2px; }
 .nav-toggle span:nth-child(3){ width: 18px; }
 
-/* حالت باز: تبدیل به ضربدر طلایی */
 .nav-toggle[aria-expanded="true"] span{ background: var(--c-gold); }
 .nav-toggle[aria-expanded="true"] span:nth-child(1){
   width: 18px;
@@ -369,7 +389,8 @@ a{ color: inherit; text-decoration:none; }
   align-items:center;
   padding-top: 120px;
   background:
-    radial-gradient(circle at 85% 15%, rgba(201,162,39,0.10), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(201,162,39,0.14), transparent 45%),
+    radial-gradient(circle at 8% 85%, rgba(201,162,39,0.08), transparent 40%),
     var(--c-white);
 }
 
@@ -387,17 +408,58 @@ a{ color: inherit; text-decoration:none; }
 }
 .eyebrow-line{ width: 32px; height: 1px; background: var(--c-gold); }
 
+/* ===== عنوان هیرو: EDITRO + لوگوی همراه ===== */
+.hero-brand{
+  display:flex;
+  align-items:center;
+  gap: 22px;
+  margin: 0 0 20px;
+  flex-wrap: wrap;
+}
+
+.hero-logo-mark{
+  height: clamp(56px, 9vw, 96px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 18px rgba(201,162,39,0.35));
+  flex-shrink: 0;
+}
+
 .hero-title{
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 900;
   font-size: clamp(3rem, 11vw, 6.5rem);
-  line-height: 1.1;
-  margin: 0 0 20px;
+  line-height: 1;
+  margin: 0;
   letter-spacing: -0.01em;
-  background: linear-gradient(90deg, var(--c-gold-deep) 0%, var(--c-gold) 22%, #F5E29A 50%, var(--c-gold) 78%, var(--c-gold-deep) 100%);
+
+  /* گرادینت طلایی چندلایه + انیمیشن درخشش ملایم (خفن‌تر، جذاب‌تر) */
+  background: linear-gradient(100deg,
+    var(--c-gold-deep) 0%,
+    var(--c-gold) 18%,
+    #F8E9A8 38%,
+    #FFF6D8 50%,
+    #F8E9A8 62%,
+    var(--c-gold) 82%,
+    var(--c-gold-deep) 100%);
+  background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+
+  /* استروک ظریف طلایی برای حس «خفن‌تر» و شبیه لوگو */
+  -webkit-text-stroke: 1.5px rgba(143,110,23,0.35);
+  paint-order: stroke fill;
+  filter: drop-shadow(0 2px 10px rgba(201,162,39,0.25));
+
+  animation: shine 6s linear infinite;
+}
+@keyframes shine{
+  0%{ background-position: 0% center; }
+  100%{ background-position: 220% center; }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-title{ animation: none; }
 }
 
 .hero-subtitle{
@@ -407,7 +469,7 @@ a{ color: inherit; text-decoration:none; }
   margin: 0 0 36px;
 }
 
-.hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+.hero-actions{ display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
 
 .btn{
   display:inline-block;
@@ -415,13 +477,47 @@ a{ color: inherit; text-decoration:none; }
   border-radius: var(--radius-btn);
   font-weight:700;
   font-size: 0.95rem;
-  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
-.btn-primary{ background: var(--c-gold); color: var(--c-white); }
-.btn-primary:hover{ background: var(--c-gold-strong); transform: translateY(-2px); }
+.btn-primary{
+  background: linear-gradient(120deg, var(--c-gold-deep), var(--c-gold) 45%, #F0D77A 60%, var(--c-gold) 80%, var(--c-gold-deep));
+  background-size: 220% auto;
+  color: var(--c-white);
+  box-shadow: 0 8px 20px rgba(201,162,39,0.28);
+}
+.btn-primary:hover{ background-position: right center; transform: translateY(-2px); box-shadow: 0 12px 26px rgba(201,162,39,0.38); }
 
 .btn-ghost{ border: 1px solid var(--c-line-gold); color: var(--c-ink); }
 .btn-ghost:hover{ border-color: var(--c-gold); color: var(--c-gold-deep); transform: translateY(-2px); }
+
+.hero-highlights{
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--c-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 32px;
+}
+.hero-highlights li{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--c-ink-soft);
+}
+.hero-highlight-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(201,162,39,0.10);
+  border: 1px solid var(--c-line-gold);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
 
 .scroll-cue{
   position:absolute;
@@ -456,7 +552,7 @@ a{ color: inherit; text-decoration:none; }
   100%{ top:100%; }
 }
 
-/* ===== Scroll reveal: افکت شبیه Cut Transition در تدوین ===== */
+/* ===== Scroll reveal ===== */
 .reveal-up{
   position: relative;
   opacity: 0;
@@ -489,7 +585,7 @@ a{ color: inherit; text-decoration:none; }
   100%{ transform: scaleX(1); opacity:0; }
 }
 
-/* ===== Film Strip: دیوایدر پرفراژدار بین بخش‌ها ===== */
+/* ===== Film Strip ===== */
 .filmstrip{
   height: 22px;
   background:
@@ -522,7 +618,7 @@ a{ color: inherit; text-decoration:none; }
   .filmstrip--vertical{ display:block; }
 }
 
-/* ===== Audio Waveform: عنصر تزئینی صوتی ===== */
+/* ===== Audio Waveform ===== */
 .waveform{
   display:inline-flex;
   align-items:flex-end;
@@ -552,7 +648,7 @@ a{ color: inherit; text-decoration:none; }
   .waveform span{ animation: none; transform: scaleY(0.8); }
 }
 
-/* ===== Patterns — الان واقعاً دیده می‌شن (نه ۵٪ شفافیت قبلی) ===== */
+/* ===== Patterns ===== */
 .pattern-hero{
   background-image:
     repeating-linear-gradient(to bottom, rgba(201,162,39,0.32) 0 2px, transparent 2px 48px),
@@ -725,6 +821,12 @@ section{ padding: 64px 0; }
   max-width: 48ch;
   margin: 0 auto 28px;
 }
+.order-actions{
+  display:flex;
+  gap: 14px;
+  justify-content:center;
+  flex-wrap: wrap;
+}
 
 /* ===== Reveal: نام و درباره من ===== */
 .reveal-section{
@@ -743,10 +845,15 @@ section{ padding: 64px 0; }
   font-size: clamp(2.6rem, 9vw, 5.5rem);
   margin: 0 0 14px;
   letter-spacing: -0.01em;
-  background: linear-gradient(90deg, var(--c-gold), #F0D77A, var(--c-gold));
+  background: linear-gradient(100deg, var(--c-gold) 0%, #F0D77A 25%, #FFF6D8 50%, #F0D77A 75%, var(--c-gold) 100%);
+  background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: shine 7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal-name{ animation: none; }
 }
 .reveal-role{
   font-family: var(--font-mono);
@@ -821,4 +928,6 @@ section{ padding: 64px 0; }
   section{ padding: 44px 0; }
   .reveal-section{ padding: 72px 0; }
   .hero{ padding-top: 108px; }
+  .hero-brand{ gap: 14px; }
+  .hero-logo-mark{ height: 52px; }
 }
